@@ -128,10 +128,12 @@ public class AuthController {
     }
 
     @PutMapping("/update-user")
-    public ResponseEntity<?> updateUserDetails(@RequestBody User user){
+    public ResponseEntity<User> updateUserDetails(@RequestBody User user){
         try{
+            User fetchUser = this.userService.getUserById(user.getId());
+            user.setPassword(fetchUser.getPassword());
             this.userService.updateUser(user);
-            return new ResponseEntity<>(user,HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

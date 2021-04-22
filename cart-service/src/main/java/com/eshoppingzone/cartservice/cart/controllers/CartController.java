@@ -1,15 +1,18 @@
 package com.eshoppingzone.cartservice.cart.controllers;
 
-import com.eshoppingzone.cartservice.cart.models.Cart;
-import com.eshoppingzone.cartservice.cart.models.Item;
-import com.eshoppingzone.cartservice.cart.models.Price;
+import com.eshoppingzone.cartservice.cart.config.RabbitMQProperties;
+import com.eshoppingzone.cartservice.cart.models.*;
+import com.eshoppingzone.cartservice.cart.proxy.PaymentProxy;
 import com.eshoppingzone.cartservice.cart.service.CartService;
+import com.stripe.model.Charge;
 import io.swagger.annotations.Api;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +27,18 @@ public class CartController {
 
     CartService cartService;
 
+    PaymentProxy paymentProxy;
+
+    RabbitTemplate rabbitTemplate;
+
+    RabbitMQProperties rabbitMQProperties;
+
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService,PaymentProxy paymentProxy,RabbitTemplate rabbitTemplate,RabbitMQProperties rabbitMQProperties) {
         this.cartService = cartService;
+        this.paymentProxy = paymentProxy;
+        this.rabbitTemplate = rabbitTemplate;
+        this.rabbitMQProperties = rabbitMQProperties;
     }
 
     //Add Item to Cart
@@ -183,6 +195,49 @@ public class CartController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/charge")
+    public ResponseEntity<?> chargeCard(@RequestBody OrderInfo orderInfo){
+        //Connect to payments service with feign and after confirming the payment then send
+        //items to queue and empty the cart
+
+        try{
+            Cart cart = this.cartService.getCartByUserId(orderInfo.getUserId());
+            String paymentResponse = this.paymentProxy.makePayment(orderInfo.getToken(),cart.getTotalPrice()+"");
+
+
+            Order order = new Order();
+            order.setUserId(cart.getUserId());
+            order.setTotalPrice(cart.getTotalPrice());
+            order.setTotalSavingsAmount(cart.getTotalSavingsAmount());
+            order.setItems(cart.getItems());
+            order.setAddress(orderInfo.getAddress());
+            order.setMobileNumber(orderInfo.getMobileNumber());
+            order.setEmail(orderInfo.getEmail());
+
+
+            rabbitTemplate.convertAndSend(this.rabbitMQProperties.getExchangeName(),this.rabbitMQProperties.getRoutingKey(),order);
+
+
+            cart.setItems(new ArrayList<>());
+            cart.setTotalPrice(0);
+            cart.setTotalSavingsAmount(0);
+
+            this.cartService.updateCart(cart);
+
+            HashMap<String,Object> response = new HashMap<>();
+            response.put("status",paymentResponse);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+
+    }
+
 
 
 

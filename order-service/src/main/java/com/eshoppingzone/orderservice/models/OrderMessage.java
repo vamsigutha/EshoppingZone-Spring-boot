@@ -2,21 +2,15 @@ package com.eshoppingzone.orderservice.models;
 
 import lombok.Data;
 
-import org.springframework.data.annotation.Id;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Order {
-    @Id
-    private String orderId;
+public class OrderMessage {
     private String userId;
     private double totalPrice;
     private double totalSavingsAmount;
-    private List<Item> items;
-    private String deliveryAgentId="";
-    private boolean deliveryAgentAssigned=false;
-    private String orderStatus="placed";
+    private List<Item> items = new ArrayList<>();
     private Address address;
     private long mobileNumber;
     private String email;
