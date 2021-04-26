@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,12 +34,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @WebMvcTest(AuthController.class)
-@EnableWebMvc
 class AuthControllerTest {
+
 
 
     @Autowired
@@ -59,14 +66,9 @@ class AuthControllerTest {
     @MockBean
     private JwtUtils jwtUtils;
 
-    @MockBean
-    AuthController authController;
 
-    @Autowired
-    ObjectMapper mapper;
 
-    @Autowired
-    private WebApplicationContext context;
+
 
     private User user;
 
@@ -102,16 +104,19 @@ class AuthControllerTest {
 
         user.setGender("male");
 
+
+
 //        ResponseEntity<User> entity = new ResponseEntity<>(HttpStatus.OK);
 //
 //        when(authController.updateUserDetails(any(User.class))).thenCallRealMethod();
 
         String url="/update-user";
+
        MvcResult result =  mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
                .characterEncoding("UTF-8")
-                        .content(this.mapper.writeValueAsBytes(user))
-        ).andExpect(status().isOk()).andReturn();
+                        .content(asJsonString(user)).with(csrf())
+        ).andDo(print()).andExpect(status().isOk()).andReturn();
 
        String jsonResult = result.getResponse().getContentAsString();
 
@@ -130,7 +135,8 @@ class AuthControllerTest {
 
         MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.get("/get-user")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("id","kdjfdk")
+                .param("id","sdjfkdjs")
+                .with(csrf())
         ).andExpect(status().isOk()).andReturn();
 
 

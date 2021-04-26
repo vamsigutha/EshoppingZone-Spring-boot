@@ -3,6 +3,7 @@ package com.eshoppingzone.orderservice.components;
 import com.eshoppingzone.orderservice.models.Order;
 import com.eshoppingzone.orderservice.models.OrderMessage;
 import com.eshoppingzone.orderservice.service.OrderService;
+import com.eshoppingzone.orderservice.service.SendEmailService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class RabbitMQListener {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    SendEmailService sendEmailService;
 
     @Bean
     public Jackson2JsonMessageConverter converter() {
@@ -33,5 +37,9 @@ public class RabbitMQListener {
         order.setMobileNumber(orderMessage.getMobileNumber());
         order.setEmail(orderMessage.getEmail());
         this.orderService.addOrder(order);
+        sendEmailService.sendMail(
+                order.getEmail(),
+                "We received your payment "+ order.getTotalPrice()+ " rupees, and your order has been successfully placed, Thanks for shopping with us.",
+                "Order Placed");
     }
 }

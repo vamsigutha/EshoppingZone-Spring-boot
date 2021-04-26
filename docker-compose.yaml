@@ -1,0 +1,86 @@
+version: '3.7'
+
+services:
+    profile-service:
+        image: vamsigutha/eshoppingzone-profile-service:1.0
+        # mem_limit: 650m
+        ports:
+            - "8000:8000"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    api-gateway:
+        image: vamsigutha/eshoppingzone-api-gateway:1.0
+        # mem_limit: 650m
+        ports:
+            - "8765:8765"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    order-service:
+        image: vamsigutha/eshoppingzone-order-service:1.0
+        # mem_limit: 650m
+        ports:
+            - "8400:8400"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    payment-service:
+        image: vamsigutha/eshoppingzone-payment-service:1.0
+        # mem_limit: 650m
+        ports:
+            - "8300:8300"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+            - order-service
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    product-service:
+        image: vamsigutha/eshoppingzone-product-service:1.0
+        # mem_limit: 650m
+        ports:
+            - "8100:8100"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    cart-service:
+        image: vamsigutha/eshoppingzone-cart-service:1.0
+        # mem_limit: 650m
+        ports:
+            - "8200:8200"
+        networks:
+            - eshoppingzone
+        depends_on:
+            - naming-server
+        environment:
+            EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+    naming-server:
+        image: vamsigutha/eshoppingzone-naming-server:1.0
+        # mem_limit: 650m
+        ports:
+            - "8761:8761"
+        networks:
+            - eshoppingzone
+
+networks:
+    eshoppingzone:         

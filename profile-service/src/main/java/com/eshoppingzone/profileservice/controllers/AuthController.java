@@ -128,7 +128,7 @@ public class AuthController {
     }
 
     @PutMapping("/update-user")
-    public ResponseEntity<User> updateUserDetails(@RequestBody User user){
+    public ResponseEntity<?> updateUserDetails(@RequestBody User user){
         try{
             User fetchUser = this.userService.getUserById(user.getId());
             user.setPassword(fetchUser.getPassword());

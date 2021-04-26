@@ -1,6 +1,6 @@
 package com.eshoppingzone.orderservice.models;
 
-import lombok.Data;
+import lombok.*;
 
 import org.springframework.data.annotation.Id;
 

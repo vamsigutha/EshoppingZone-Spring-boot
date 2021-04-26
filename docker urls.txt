@@ -1,0 +1,5 @@
+Profile Service:  docker.io/vamsigutha/eshoppingzone-profile-service:1.0
+Naming Service : docker.io/vamsigutha/eshoppingzone-naming-server:1.0
+Api Gateway : docker.io/vamsigutha/eshoppingzone-api-gateway:1.0
+Order Service : docker.io/vamsigutha/eshoppingzone-order-service:1.0
+
