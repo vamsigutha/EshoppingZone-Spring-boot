@@ -10,8 +10,15 @@ services:
             - eshoppingzone
         depends_on:
             - naming-server
+            - rabbitmq
+            - mongodb_container
+            - profile_db
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     api-gateway:
         image: vamsigutha/eshoppingzone-api-gateway:1.0
@@ -22,8 +29,13 @@ services:
             - eshoppingzone
         depends_on:
             - naming-server
+            - rabbitmq
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     order-service:
         image: vamsigutha/eshoppingzone-order-service:1.0
@@ -34,8 +46,15 @@ services:
             - eshoppingzone
         depends_on:
             - naming-server
+            - rabbitmq
+            - mongodb_container
+            - orders-db
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     payment-service:
         image: vamsigutha/eshoppingzone-payment-service:1.0
@@ -47,8 +66,15 @@ services:
         depends_on:
             - naming-server
             - order-service
+            - rabbitmq
+            - mongodb_container
+            - payments-db
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     product-service:
         image: vamsigutha/eshoppingzone-product-service:1.0
@@ -59,8 +85,15 @@ services:
             - eshoppingzone
         depends_on:
             - naming-server
+            - rabbitmq
+            - mongodb_container
+            - products-db
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     cart-service:
         image: vamsigutha/eshoppingzone-cart-service:1.0
@@ -71,8 +104,15 @@ services:
             - eshoppingzone
         depends_on:
             - naming-server
+            - rabbitmq
+            - mongodb_container
+            - cart-db
         environment:
             EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+            SPRING.ZIPKIN.BASEURL: http://zipkin-server:9412/
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_ZIPKIN_SENDER_TYPE: rabbit
 
     naming-server:
         image: vamsigutha/eshoppingzone-naming-server:1.0
@@ -81,6 +121,73 @@ services:
             - "8761:8761"
         networks:
             - eshoppingzone
+
+    zipkin-server:
+        image: openzipkin/zipkin:2.23
+        # mem_limit: 300m
+        ports:
+            - "9412:9411"
+        networks:
+            - eshoppingzone
+        environment:
+            RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+        depends_on:
+            - rabbitmq
+        restart: always #Restart if there is a problem starting up
+
+    rabbitmq:
+        image: rabbitmq:3.5.3-management
+        # mem_limit: 300m
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - eshoppingzone
+    
+    mongodb_container:
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb_data_container:/data/db
+
+    cart-db:
+        image: mongo:latest
+        ports:
+            - 27018:27017
+    
+    orders-db:
+        image: mongo:latest
+        ports:
+            - 27019:27017
+
+    payments-db:
+        image: mongo:latest
+        ports:
+            - 27020:27017
+
+    products-db:
+        image: mongo:latest
+        ports:
+            - 27021:27017
+
+    profile_db:
+        image: mongo:latest
+        ports:
+            - 27022:27017
+
+    smtp:
+        image: namshi/smtp
+        container_name: smtp_relay
+        restart: always
+        ports:
+            - "25:25"
+
+volumes:
+  mongodb_data_container:
 
 networks:
     eshoppingzone:         

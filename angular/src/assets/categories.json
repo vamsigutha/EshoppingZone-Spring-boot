@@ -1,0 +1,249 @@
+[
+  {
+    "name": "Appliances",
+    "category": "appliances",
+    "sub_category": [
+      "Refrigerators, Freezers & Ice Makers",
+      "Laundry Appliances",
+      "Ranges, Ovens & Cooktops",
+      "Microwave Ovens",
+      "Small Kitchen Appliances",
+      "Heating, Cooling & Air Quality",
+      "Vacuums & Floor Care",
+      "Garbage Disposals & Compactors",
+      "Parts & Accessories"
+    ]
+  },
+  {
+    "name": "Arts, Crafts & Sewing",
+    "category": "arts-crafts",
+    "sub_category": [
+      "Beading & Jewelry Making",
+      "Crafting",
+      "Fabric Decorating",
+      "Gift Wrapping Supplies",
+      "Painting, Drawing & Art Supplies",
+      "Party Decorations & Supplies"
+    ]
+  },
+  {
+    "name": "Automotive Parts & Accessories",
+    "category": "automotive",
+    "sub_category": [
+      "Exterior Accessories",
+      "Interior Accessories",
+      "Replacement Parts",
+      "Tires & Wheels"
+    ]
+  },
+  {
+    "name": "Baby",
+    "category": "baby-products",
+    "sub_category": [
+      "Activity & Entertainment",
+      "Baby & Toddler Toys",
+      "Baby Care",
+      "Car Seats & Accessories",
+      "Feeding",
+      "Diapering"
+    ]
+  },
+  {
+    "name": "Beauty & Personal Care",
+    "category": "beauty",
+    "sub_category": [
+      "Makeup",
+      "Skin Care",
+      "Hair Care",
+      "Fragrance",
+      "Foot, Hand & Nail Care",
+      "Personal Care"
+    ]
+  },
+  {
+    "name": "Cell Phones & Accessories",
+    "category": "mobile",
+    "sub_category": [
+      "Accessories",
+      "Cases, Holsters & Sleeves",
+      "Cell Phones",
+      "Google",
+      "lg",
+      "redmi",
+      "poco",
+      "oneplus",
+      "realme",
+      "samsung",
+      "moto"
+    ]
+  },
+  {
+    "name": "Women",
+    "category": "fashion-womens",
+    "sub_category": ["Clothing", "Shoes", "Jewelry", "Watches", "Handbags"]
+  },
+  {
+    "name": "Men",
+    "category": "fashion-mens",
+    "sub_category": ["Clothing", "Shoes", "Jewelry", "Watches"]
+  },
+  {
+    "name": "Girls",
+    "category": "fashion-girls",
+    "sub_category": [
+      "Clothing",
+      "Shoes",
+      "Jewelry",
+      "Handbags",
+      "Accessories",
+      "School Uniforms"
+    ]
+  },
+  {
+    "name": "Boys",
+    "category": "fashion-boys",
+    "sub_category": [
+      "Clothing",
+      "Shoes",
+      "Jewelry",
+      "Handbags",
+      "School Uniforms"
+    ]
+  },
+  {
+    "name": "Computers",
+    "category": "computers",
+    "sub_category": [
+      "Computer Components",
+      "Computers & Tablets",
+      "Data Storage",
+      "Laptop Accessories",
+      "Monitors",
+      "Networking Products",
+      "Printers",
+      "Scanners",
+      "Servers"
+    ]
+  },
+  {
+    "name": "Electronics",
+    "category": "electronics",
+    "sub_category": [
+      "Accessories & Supplies",
+      "Camera & Photo",
+      "Car & Vehicle Electronics",
+      "Cell Phones & Accessories",
+      "Computers & Accessories",
+      "GPS, Finders & Accessories",
+      "Headphones",
+      "Home Audio",
+      "Office Electronics",
+      "Portable Audio & Video",
+      "Security & Surveillance",
+      "Television & Video",
+      "Video Game Consoles & Accessories",
+      "Video Projectors",
+      "Wearable Technology",
+      "eBook Readers & Accessories",
+      "Household Batteries, Chargers & Accessories"
+    ]
+  },
+  {
+    "name": "Garden & Outdoor",
+    "category": "lawngarden",
+    "sub_category": [
+      "Gardening & Lawn Care",
+      "Outdoor Décor",
+      "Patio Furniture & Accessories",
+      "Grills & Outdoor Cooking",
+      "Outdoor Lighting",
+      "Outdoor Power Tools",
+      "Pools, Hot Tubs & Supplies",
+      "Pest Control"
+    ]
+  },
+  {
+    "name": "Grocery & Gourmet Food",
+    "category": "grocery",
+    "sub_category": ["Pantry Staples", "Snack Foods"]
+  },
+  {
+    "name": "Health & Household",
+    "category": "hpc",
+    "sub_category": [
+      "Baby & Child Care",
+      "Health Care",
+      "Household Supplies",
+      "Medical Supplies & Equipment",
+      "Stationery & Gift Wrapping Supplies",
+      "Vitamins & Dietary Supplements"
+    ]
+  },
+  {
+    "name": "Home & Kitchen",
+    "category": "garden",
+    "sub_category": [
+      "Kids' Home Store",
+      "Kitchen & Dining",
+      "Bedding",
+      "Furniture",
+      "Home Décor",
+      "Wall Art",
+      "Lighting & Ceiling Fans",
+      "Event & Party Supplies",
+      "Heating, Cooling & Air Quality",
+      "Irons & Steamers",
+      "Vacuums & Floor Care",
+      "Cleaning Supplies"
+    ]
+  },
+  {
+    "name": "Luggage & Travel Gear",
+    "category": "fashion-luggage",
+    "sub_category": [
+      "Carry Ons",
+      "Backpacks",
+      "Garment Bags",
+      "Travel Totes",
+      "Luggage Sets",
+      "Laptop Bags",
+      "Suitcases",
+      "Kids Luggage",
+      "Messenger Bags",
+      "Umbrellas",
+      "Duffles",
+      "Travel Accessories"
+    ]
+  },
+  {
+    "name": "Musical Instruments",
+    "category": "mi",
+    "sub_category": [
+      "Amplifiers & Effects",
+      "Keyboards & MIDI",
+      "Microphones & Accessories",
+      "Instrument Accessories",
+      "Live Sound & Stage",
+      "Studio Recording Equipment",
+      "Electronic Music, DJ & Karaoke"
+    ]
+  },
+  {
+    "name": "Pet Supplies",
+    "category": "pets",
+    "sub_category": ["Dogs", "Fish & Aquatic Pets"]
+  },
+  {
+    "name": "Video Games",
+    "category": "videogames",
+    "sub_category": [
+      "PlayStation 5",
+      "PlayStation 4",
+      "Xbox Series X & S",
+      "Xbox One",
+      "Nintendo Switch",
+      "Nintendo 3DS & 2DS",
+      "Virtual Reality"
+    ]
+  }
+]

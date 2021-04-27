@@ -1,0 +1,60 @@
+<a
+  [routerLink]="[
+    '/',
+    product.category.name,
+    product.category.sub_category,
+    product.id
+  ]"
+  (click)="showProduct()"
+  class="flex flex-col h-5/6"
+>
+  <div *ngFor="let image of product.images | slice: 0:1">
+    <img
+      (mouseover)="onImageMouseOver($event)"
+      (mouseout)="onImageMouseOut($event)"
+      alt="ecommerce"
+      class="object-contain object-center w-full transition duration-500 transform h-72"
+      src="{{ image }}"
+    />
+  </div>
+
+  <div (click)="showProduct()" class="mt-4">
+    <h3 class="truncate ... mb-1 text-lg text-gray-900 title-font">
+      {{ product["title"] }}
+    </h3>
+    <h2 class="text-xs font-medium text-gray-500 title-font">
+      {{ product.category["name"] }}
+    </h2>
+
+    <p class="mt-1">
+      ₹
+      <span *ngIf="product.price.current_price >= 0">
+        {{ product.price.current_price }}
+      </span>
+    </p>
+  </div>
+</a>
+
+<!-- <div
+  class="w-full p-4 m-5 bg-white cursor-pointer hover:shadow-lg hover:border-transparent lg:w-1/5 md:w-1/2"
+>
+  <a
+    (click)="showProduct()"
+    class="relative block h-56 overflow-hidden rounded"
+  >
+    <img
+      alt="ecommerce"
+      class="block object-contain object-center w-full h-full transition duration-500 transform hover:scale-150"
+      src=""
+    />
+  </a>
+  <div (click)="showProduct()" class="mt-4">
+    <h3 class="mb-1 text-xs tracking-widest text-gray-500 title-font">
+      product.title
+    </h3>
+    <h2 class="text-lg font-medium text-gray-900 title-font">
+      product.category.name
+    </h2>
+    <p class="mt-1">₹product.price.current_price</p>
+  </div>
+</div> -->

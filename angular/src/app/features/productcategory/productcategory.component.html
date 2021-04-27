@@ -1,0 +1,64 @@
+<div class="container px-5 py-10 mx-auto md:py-16">
+  <p class="pl-2 mb-5 text-xs font-bold text-gray-500 md:ml-24">
+    {{ category }} >> {{ subCategory }} >> Page {{ currentPage }} of
+    {{ totalPages }}
+  </p>
+  <div
+    *ngIf="products.length > 0; else productsLoading"
+    class="flex flex-wrap md:ml-20 md:-m-4"
+  >
+    <div
+      *ngFor="let product of products"
+      class="w-full p-4 mb-5 bg-white cursor-pointer md:m-5 hover:shadow-lg hover:border-transparent lg:w-1/5 md:w-1/2"
+    >
+      <app-product-thumbnail-card
+        [product]="product"
+      ></app-product-thumbnail-card>
+    </div>
+  </div>
+  <ng-template #productsLoading>
+    <div class="flex flex-wrap mx-auto mt-5 md:pl-2 md:-m-4 md:ml-24">
+      <div
+        *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]"
+        class="flex flex-col w-full pt-10 pb-5 pl-5 pr-5 mb-10 bg-white shadow-lg md:mr-10 lg:w-1/5 md:w-1/2"
+      >
+        <div class="w-full h-56 p-10 mb-2 bg-gray-300 animate-pulse"></div>
+        <div class="w-2/5 h-3 mb-2 bg-gray-200 animate-pulse"></div>
+        <div class="w-4/5 h-4 mb-2 bg-gray-200 animate-pulse"></div>
+        <div class="w-2/5 h-3 mb-2 bg-gray-200 animate-pulse"></div>
+        <div class="w-2/5 h-8 bg-gray-200 rounded-lg animate-pulse"></div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Pagination -->
+<div class="flex justify-center mb-56 bg-gray-100">
+  <a
+    (click)="onPrevPage()"
+    [ngClass]="
+      currentPage == 1
+        ? 'cursor-not-allowed '
+        : 'cursor-pointer hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white dark:hover:text-gray-200'
+    "
+    class="flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md shadow dark:bg-gray-800 dark:text-gray-600"
+  >
+    previous
+  </a>
+
+  <a
+    class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-indigo-300 rounded-md dark:bg-gray-800 dark:text-gray-200"
+  >
+    Page {{ currentPage }} of {{ totalPages }}
+  </a>
+
+  <a
+    (click)="onNextPage()"
+    [ngClass]="
+      currentPage == totalPages ? 'cursor-not-allowed hover:bg-white' : ''
+    "
+    class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md shadow cursor-pointer dark:bg-gray-800 dark:text-gray-200 hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white dark:hover:text-gray-200"
+  >
+    Next
+  </a>
+</div>

@@ -1,0 +1,66 @@
+<section class="mt-10 bg-gray-100 mb-36">
+  <div class="flex flex-col w-3/4 mx-auto space-y-10">
+    <div class="container flex flex-col p-10 space-y-5 bg-white">
+      <div class="text-xl font-semibold md:text-3xl">Shipping Address</div>
+      <div class="flex flex-col p-5 border border-red-600 focus">
+        <div class="flex space-x-2 font-medium">
+          <p>{{ user?.username }}</p>
+          <p>{{ user?.mobileNumber }}</p>
+        </div>
+        <div class="flex flex-col">
+          <p>
+            {{ shippingAddress?.houseNumber }},
+            {{ shippingAddress?.colonyName }},
+            {{ shippingAddress?.streetName }}, {{ shippingAddress?.city }}
+          </p>
+          <p>{{ shippingAddress?.state }} - {{ shippingAddress?.pincode }}</p>
+        </div>
+      </div>
+      <div
+        class="cursor-pointer hover:text-indigo-600"
+        (click)="changeAddress(addressList)"
+      >
+        Change
+      </div>
+
+      <div #addressList class="hidden">
+        <hr />
+        <div
+          (click)="selectedAddress(addressList, address)"
+          *ngFor="let address of user?.addressList"
+          class="flex flex-col p-5 border hover:border-gray-800"
+        >
+          <div class="flex space-x-2 font-medium">
+            <p>{{ user?.username }}</p>
+            <p>{{ user?.mobileNumber }}</p>
+          </div>
+          <div class="flex flex-col">
+            <p>
+              {{ address?.houseNumber }}, {{ address?.colonyName }},
+              {{ address?.streetName }}, {{ address?.city }}
+            </p>
+            <p>{{ address?.state }} - {{ address?.pincode }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container flex flex-col p-10 space-y-5 bg-white">
+      <div class="text-xl font-semibold md:text-3xl">Order Summary</div>
+      <hr />
+      <div>Items : {{ cart.items.length }}</div>
+      <div>Total Savings Amount : {{ cart.totalSavingsAmount }}</div>
+      <div>Total Price : {{ cart.totalPrice }}</div>
+    </div>
+    <div class="flex justify-end">
+      <a routerLink="/payment">
+        <button
+          (click)="onClickNext()"
+          class="p-2 pl-5 pr-5 text-lg text-white bg-indigo-600 rounded shadow"
+        >
+          Next
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

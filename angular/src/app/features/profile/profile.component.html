@@ -1,0 +1,263 @@
+<section
+  class="flex items-end justify-between h-48 p-10 pl-48 pr-48 bg-gray-800"
+>
+  <div class="text-white text-7xl">{{ data?.username }}</div>
+  <div>
+    <button
+      (click)="onClickSignOut()"
+      class="p-3 text-white bg-gray-800 border rounded hover:bg-white hover:text-gray-800"
+    >
+      SIGN OUT
+    </button>
+  </div>
+</section>
+
+<section>
+  <div class="container flex pl-48 pr-48 mt-10 space-x-10">
+    <div class="w-4/5 p-5 bg-white">
+      <!-- contains content  -->
+      <div class="flex flex-col space-y-2">
+        <div class="text-3xl">Personal Data</div>
+        <hr />
+        <div class="flex flex-col p-5 space-y-2 bg-gray-100 border">
+          <div>{{ data?.username }} - {{ data?.email }}</div>
+          <div>
+            {{ data?.mobileNumber }}
+          </div>
+        </div>
+
+        <form
+          [formGroup]="profileForm"
+          (ngSubmit)="onProfileSubmit()"
+          class="flex flex-col"
+        >
+          <div class="w-2/5 mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="LoggingUserName"
+              >User Name</label
+            >
+            <input
+              formControlName="username"
+              id="LoggingUserName"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+          <div class="w-2/5 mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="LoggingUserEmail"
+              >Email</label
+            >
+            <input
+              formControlName="email"
+              id="LoggingUserEmail"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="email"
+            />
+          </div>
+          <div class="w-2/5 mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="LoggingUserMobileNumber"
+              >Mobile Number</label
+            >
+            <input
+              formControlName="mobileNumber"
+              id="LoggingUserMobileNumber"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+          <div class="w-2/5 mt-8 mb-5">
+            <button
+              [disabled]="!profileForm.valid"
+              class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Addressess -->
+
+<section class="pl-48 pr-48 mt-10">
+  <div class="container flex flex-col w-4/5 p-5 space-y-5 bg-white">
+    <div class="text-3xl">Addresses</div>
+    <hr />
+    <div
+      *ngFor="let address of addressList"
+      class="flex flex-col w-full p-5 text-lg bg-gray-100 shadow"
+    >
+      <div>
+        {{ address?.houseNumber }}, {{ address?.streetName }},
+        {{ address?.colonyName }}
+      </div>
+      <div>{{ address?.city }}, {{ address?.state }}</div>
+      <div>{{ address?.pincode }}</div>
+    </div>
+    <div class="w-2/3">
+      <form
+        [formGroup]="addressForm"
+        (ngSubmit)="onAddressSubmit()"
+        class="flex flex-col"
+      >
+        <!-- row one -->
+        <div class="flex space-x-2">
+          <div class="mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="houseNumber"
+              >House Number</label
+            >
+            <input
+              formControlName="houseNumber"
+              id="houseNumber"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+          <div class="mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="streetName"
+              >Street Name</label
+            >
+            <input
+              formControlName="streetName"
+              id="streetName"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <!-- row two -->
+
+        <div class="w-3/4 mt-4">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+            for="colonyName"
+            >Colony Name</label
+          >
+          <input
+            formControlName="colonyName"
+            id="colonyName"
+            class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            type="text"
+          />
+        </div>
+        <!-- row three -->
+        <div class="flex space-x-2">
+          <div class="mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="city"
+              >City</label
+            >
+            <input
+              formControlName="city"
+              id="city"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+          <div class="mt-4">
+            <label
+              class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              for="state"
+              >State</label
+            >
+            <input
+              formControlName="state"
+              id="state"
+              class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <!-- row four -->
+
+        <div class="w-3/4 mt-4">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+            for="pincode"
+            >Pin Code</label
+          >
+          <input
+            formControlName="pincode"
+            id="pincode"
+            class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            type="number"
+          />
+        </div>
+
+        <div class="mt-8 mb-5">
+          <button
+            class="w-3/4 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+          >
+            New Address
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Orders -->
+
+<section class="pl-48 pr-48 mt-10 mb-20">
+  <div class="container w-4/5 p-5 bg-white">
+    <div class="text-3xl">Orders</div>
+    <hr />
+    <div class="flex flex-col mt-5 space-y-5">
+      <div
+        *ngFor="let order of ordersData"
+        class="flex flex-col justify-between p-5 bg-gray-100 shadow"
+      >
+        <div class="flex flex-row items-center space-x-5">
+          <p class="text-indigo-600">Order Id :</p>
+          <p>{{ order["orderId"] }}</p>
+        </div>
+        <div class="flex flex-row items-center space-x-5">
+          <p class="text-indigo-600">Order Status :</p>
+          <p>{{ order["orderStatus"] }}</p>
+        </div>
+        <div class="flex flex-row items-center space-x-5">
+          <p class="text-indigo-600">Items :</p>
+          <p>{{ order.items.length }}</p>
+        </div>
+        <div class="flex flex-row items-center space-x-5">
+          <p class="text-indigo-600">Delivery Agent Id :</p>
+          <p>{{ order.deliveryAgentId }}</p>
+        </div>
+        <div class="flex flex-row items-center space-x-5">
+          <p class="text-indigo-600">Delivery To :</p>
+          <p>
+            {{ order.address.houseNumber }} {{ order.address.colonyName }}
+            {{ order.address.streetName }} {{ order.address.city }}
+            {{ order.address.state }} {{ order.address.pincode }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wallet -->
+
+<section class="hidden pl-48 pr-48 mt-10 mb-10">
+  <div class="container w-4/5 p-5 bg-white">
+    <div class="text-3xl">Wallet</div>
+    <hr />
+    <div class="flex justify-center mt-10 text-4xl text-indigo-500">
+      100 Credits
+    </div>
+  </div>
+</section>

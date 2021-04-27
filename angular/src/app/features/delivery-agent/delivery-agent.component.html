@@ -1,0 +1,28 @@
+<section class="w-3/4 mx-auto mt-10 mb-10">
+  <div class="container flex flex-col space-y-10">
+    <div class="text-4xl">Available Orders</div>
+    <div
+      *ngFor="let order of orders"
+      class="flex flex-col p-10 space-y-3 bg-white"
+    >
+      <div>Order Id : {{ order.orderId }}</div>
+      <div>User Id : {{ order.userId }}</div>
+      <div>
+        Address : {{ order.address.houseNumber }}
+        {{ order.address.colonyName }} {{ order.address.streetName }}
+        {{ order.address.city }} {{ order.address.state }}
+        {{ order.address.pincode }}
+      </div>
+      <div>Mobile Number : {{ order.mobileNumber }}</div>
+      <div>Email : {{ order.email }}</div>
+      <div class="flex justify-end">
+        <button
+          (click)="onClickAcceptOrder($event, order)"
+          class="p-2 pl-3 pr-3 text-white bg-indigo-600 rounded shadow hover:bg-indigo-500"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

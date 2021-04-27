@@ -1,0 +1,141 @@
+<section class="text-gray-700 bg-white body-font">
+  <div class="container px-5 py-10 mx-auto md:py-24">
+    <div class="flex flex-wrap mx-auto lg:w-4/5">
+      <div
+        class="flex flex-col items-center justify-between space-y-4 lg:w-1/2"
+      >
+        <div class="">
+          <img
+            alt="ecommerce"
+            class="object-cover object-center w-full p-5 border border-gray-200 rounded"
+            src="{{ currentImage }}"
+          />
+        </div>
+        <div
+          class="flex justify-center w-full mt-10 space-x-1 md:h-16 md:space-x-4"
+        >
+          <img
+            (click)="changeCurrentImage($event)"
+            *ngFor="let image of images"
+            alt="ecommerce"
+            class="object-cover object-center w-10 border-4 border-gray-200 rounded hover:border-indigo-600 lg:w-16"
+            src="{{ image }}"
+          />
+        </div>
+      </div>
+
+      <div class="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:mt-0">
+        <h2 class="text-sm tracking-widest text-gray-500 title-font">
+          {{ product?.product_information.brand }}
+        </h2>
+        <h1 class="mb-1 text-lg font-medium text-gray-900 title-font">
+          {{ product.title }}
+        </h1>
+        <div class="flex mb-4">
+          <span class="flex items-center">
+            <app-filled-rating-star></app-filled-rating-star>
+            <app-filled-rating-star></app-filled-rating-star>
+            <app-filled-rating-star></app-filled-rating-star>
+            <app-non-filled-rating-star></app-non-filled-rating-star>
+            <app-non-filled-rating-star></app-non-filled-rating-star>
+            <span class="ml-3 text-gray-600"
+              >{{ product.reviews.total_reviews }} Reviews</span
+            >
+          </span>
+        </div>
+        <div>
+          <p
+            *ngFor="let feature of product.feature_bullets"
+            class="mb-1 text-xs leading-relaxed"
+          >
+            • {{ feature }}
+          </p>
+        </div>
+
+        <div class="mt-5 rounded shadow">
+          <p class="p-5 text-center text-indigo-500">
+            {{ product.delivery_message }}
+          </p>
+        </div>
+
+        <div class="flex mt-10">
+          <span
+            *ngIf="product.price.current_price > 0"
+            class="text-2xl font-medium text-gray-900 title-font"
+            >₹{{ product.price.current_price }}</span
+          >
+          <span
+            *ngIf="!(product.price.current_price > 0)"
+            class="text-2xl font-medium text-gray-900 title-font"
+            >Out of Stock</span
+          >
+          <button
+            (click)="onClickAddToCartButton($event)"
+            [disabled]="!(product.price.current_price > 0)"
+            [ngClass]="
+              !(product.price.current_price > 0)
+                ? 'bg-red-300 hover:bg-red-300'
+                : ''
+            "
+            class="flex px-6 py-2 ml-auto text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-red-600"
+          >
+            Add to Cart
+          </button>
+          <button
+            class="inline-flex items-center justify-center w-10 h-10 p-0 ml-4 text-gray-500 bg-gray-200 border-0 rounded-full"
+          >
+            <svg
+              fill="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Description -->
+<section class="bg-white">
+  <div class="w-full p-5 mx-auto md:w-4/5">
+    <p class="mb-3 text-3xl font-medium">Description</p>
+    <hr />
+    <p class="mt-5">{{ product.description }}</p>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="bg-white">
+  <diV class="w-full p-5 md:w-3/5 md:ml-36">
+    <p class="mb-3 text-3xl font-medium">Reviews</p>
+    <hr />
+    <div
+      *ngFor="let review of product.reviews.result"
+      class="container flex flex-col m-5 ml-0 space-y-1"
+    >
+      <div class="flex items-center space-x-1">
+        <app-user-circle></app-user-circle>
+        <p class="text-gray-700">{{ review.name }}</p>
+      </div>
+      <div class="flex flex-col space-x-1 md:flex-row">
+        <div class="flex flex-row items-center ml-1 font-medium">
+          {{ review.rating }}
+          <app-non-filled-rating-star></app-non-filled-rating-star>
+        </div>
+        <div class="font-medium">{{ review.title }}</div>
+      </div>
+      <div class="pb-5 ml-1 text-gray-900">
+        {{ review.review }}
+      </div>
+      <hr />
+    </div>
+  </diV>
+</section>
